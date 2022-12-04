@@ -1,7 +1,7 @@
 # NUM-SYS Converter V1.0
 
 (Number System Converter)
-is a easy to use python based tool to convert Binary, Octal, Decimal and Hexadecimal to one another.  
+is a easy to use python tool to convert Binary, Octal, Decimal and Hexadecimal to one another.  
 
 Also handles fractional numbers.
 
