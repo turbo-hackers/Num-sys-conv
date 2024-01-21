@@ -14,6 +14,22 @@ pi = '\033[35m' # pink
 reset = '\033[0m' # reset
 blink = "\033[5;92m" # blink
 
+#!/usr/bin/env python3
+# coded by TURB0
+# github https://github.com/turbo-hackers
+
+#   decimal to binary,octal,hexadecimal
+
+# colors
+r ='\033[91m' # red
+g ='\033[92m' # green
+b = '\033[94m' # blue
+y = '\033[93m' # yellow
+s_b ='\033[96m' # sky_blue
+pi = '\033[35m' # pink
+reset = '\033[0m' # reset
+blink = "\033[5;92m" # blink
+
 
 def decimal():
 	
@@ -128,58 +144,44 @@ def decimal():
   +------------------+-------------------+"""+reset)
 	
 	def to_hexadecimal(num):
-		
 		point = False
-		hex_table = {'0': 0, '1': 1, '2': 2, '3': 3,
+		hex_table = {
+			'0': 0, '1': 1, '2': 2, '3': 3,
 			'4': 4, '5': 5, '6': 6, '7': 7,
 			'8': 8, '9': 9, 'A': 10, 'B': 11,
-			'C': 12, 'D': 13, 'E': 14, 'F': 15}
-			
+			'C': 12, 'D': 13, 'E': 14, 'F': 15
+		}
+
 		def to_hexa(num):
-			global ans
 			ans_l1 = []
-			while (num/16>=1):
-				opt = num/16
-				if type(opt) == float:
-					opt1 = (opt - int(opt)) * 16
-					ans_l1.append(int(opt1))
-					num = int(opt)
-					if opt < 16:
-						ans_l1.append(int(opt))
-						num = 1
-				else:
-					ans_l1.append(int(opt))
-					num = int(opt)
+			while num >= 1:
+				opt = num / 16
+				opt1 = (opt - int(opt)) * 16
+				ans_l1.append(int(opt1))
+				num = int(opt)
+
 			ans_l1.reverse()
-			ans = ""
-			for i in ans_l1:
-				ans += str(list(hex_table.keys())[list(hex_table.values()).index(i)])
-		if '.' in num:
+			return ''.join(str(list(hex_table.keys())[list(hex_table.values()).index(i)]) for i in ans_l1)
+
+		if '.' in str(num):
 			point = True
 			num = float(num)
 		else:
 			num = int(num)
-		if point != True:
-			to_hexa(num)
-			out_ans = ans
-		else:
-			to_hexa(num)
-			times = 0 # 0-5
+
+		if point:
+			ans1 = int(num)
+			ans2 = '.'
 			ans_p_l = []
-			opt_st = True
-			ans1 = num - int(num)
-			while (times!=5) and (opt_st == True):
-				times += 1
-				opt = float(ans1*16)
+			for _ in range(5):
+				ans1, opt = divmod(ans1 * 16, 1)
 				ans_p_l.append(int(opt))
-				ans1 = opt-int(opt)
-				if ans1 == 0.0 or ans1 == 0:
-					opt_st = False
-			ans2 = "."
-			for j in ans_p_l:
-				ans2 += str(list(hex_table.keys())[list(hex_table.values()).index(j)])
-			total_ans = str(ans)+str(ans2)
-			out_ans = total_ans
+				if ans1 == 0:
+					break
+			ans2 += ''.join(str(list(hex_table.keys())[list(hex_table.values()).index(j)]) for j in ans_p_l)
+			out_ans = f"{to_hexa(int(num))}{ans2}"
+		else:
+			out_ans = to_hexa(num)
 		print("\n")
 		print(pi+"""
                +------------+
@@ -189,15 +191,6 @@ def decimal():
   +------------------+-------------------+"""+reset+"""
         """+s_b,num,reset+"""     """+pi+""">>>"""+reset+"""    """+g,out_ans,pi+"""
   +------------------+-------------------+"""+reset)
-	
-	print(pi+"""
-   +------------------+
-   |"""+reset+"""  """+s_b+"""From Decimal To"""+reset+""" """+pi+"""|
-   +------------------+-------------------+
-   |"""+reset+"   "+s_b+"""1 """+y+"""->>"""+g+""" Binary"""+reset+"""   """+pi+"""|"""+reset+"""  """+s_b+"""2 """+y+"""->>"""+g+""" Octal"""+reset+"""      """+pi+"""|
-   +------------------+-------------------+
-   |"""+reset+"          "+s_b+"""3 """+y+"""->>"""+g+""" Hexadecimal"""+reset+"""           """+pi+"""|
-   +------------------+-------------------+"""+reset)
 
 	to_choice = int(input(y+"""
    ┌──["""+b+"""Enter the option"""+y+"""]"""+reset+"""
